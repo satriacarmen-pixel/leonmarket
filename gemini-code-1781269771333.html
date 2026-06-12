@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ℒeon ℳarket | Premium Store</title>
+    <!-- Font & Ikon Eksternal -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #05050a;
+            color: #e2e2e9;
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ornamen Cahaya Latar Belakang */
+        .bg-glow-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.12) 0%, rgba(0,0,0,0) 70%);
+            top: -150px;
+            left: -150px;
+            z-index: 1;
+        }
+        .bg-glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(3, 218, 198, 0.08) 0%, rgba(0,0,0,0) 70%);
+            bottom: -150px;
+            right: -150px;
+            z-index: 1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(13, 13, 22, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 32px;
+            padding: 30px 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            z-index: 2;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 40%, #a370f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 0.75rem;
+            color: #6d6d85;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Kategori */
+        .category-title {
+            font-size: 0.85rem;
+            color: #a370f7;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 35px 0 15px 4px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(163, 112, 247, 0.2);
+            padding-bottom: 6px;
+        }
+
+        /* Kotak Produk */
+        .product-box {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 22px;
+            padding: 18px;
+            margin-bottom: 16px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .product-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Logo Aplikasi */
+        .app-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .product-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        /* Badge Stok Digital */
+        .stock-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stock-ready {
+            background: rgba(39, 174, 96, 0.15);
+            color: #2ecc71;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+        }
+        .stock-ask {
+            background: rgba(241, 196, 15, 0.15);
+            color: #f1c40f;
+            border: 1px solid rgba(241, 196, 15, 0.3);
+        }
+
+        /* Sub Grup */
+        .sub-group {
+            margin-bottom: 12px;
+            border-left: 2px solid rgba(255, 255, 255, 0.06);
+            padding-left: 12px;
+            margin-left: 4px;
+        }
+
+        .sub-title {
+            font-size: 0.75rem;
+            color: #8e8e9f;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        /* Detail Harga */
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            padding: 4px 0;
+            color: #b5b5c6;
+        }
+
+        .price-value {
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #03dac6;
+            background: rgba(3, 218, 198, 0.06);
+            padding: 2px 7px;
+            border-radius: 6px;
+            border: 1px solid rgba(3, 218, 198, 0.1);
+        }
+
+        /* ----------------------------------------------------
+           WARNA KHAS & GLOW EFEK PER APLIKASI
+        ---------------------------------------------------- */
+        .app-netflix .app-logo { background: #e50914; }
+        .app-netflix:hover { border-color: rgba(229, 9, 20, 0.3); box-shadow: 0 10px 25px rgba(229, 9, 20, 0.12); transform: translateY(-3px); }
+
+        .app-vidio .app-logo { background: #ff007f; }
+        .app-vidio:hover { border-color: rgba(255, 0, 127, 0.3); box-shadow: 0 10px 25px rgba(255, 0, 127, 0.12); transform: translateY(-3px); }
+
+        .app-loklok .app-logo { background: #ffbc00; color: #000; }
+        .app-loklok:hover { border-color: rgba(255, 188, 0, 0.3); box-shadow: 0 10px 25px rgba(255, 188, 0, 0.12); transform: translateY(-3px); }
+
+        .app-youtube .app-logo { background: #ff0000; }
+        .app-youtube:hover { border-color: rgba(255, 0, 0, 0.3); box-shadow: 0 10px 25px rgba(255, 0, 0, 0.12); transform: translateY(-3px); }
+
+        .app-iqiyi .app-logo { background: #00c759; }
+        .app-iqiyi:hover { border-color: rgba(0, 199, 89, 0.3); box-shadow: 0 10px 25px rgba(0, 199, 89, 0.12); transform: translateY(-3px); }
+
+        .app-wetv .app-logo { background: #ff5c1c; }
+        .app-wetv:hover { border-color: rgba(255, 92, 28, 0.3); box-shadow: 0 10px 25px rgba(255, 92, 28, 0.12); transform: translateY(-3px); }
+
+        .app-disney .app-logo { background: #032b5f; }
+        .app-disney:hover { border-color: rgba(3, 43, 95, 0.5); box-shadow: 0 10px 25px rgba(3, 43, 95, 0.12); transform: translateY(-3px); }
+
+        .app-prime .app-logo { background: #00a8e1; }
+        .app-prime:hover { border-color: rgba(0, 168, 225, 0.3); box-shadow: 0 10px 25px rgba(0, 168, 225, 0.12); transform: translateY(-3px); }
+
+        .app-alight .app-logo { background: linear-gradient(135deg, #00d2ff, #0066ff); }
+        .app-alight:hover { border-color: rgba(0, 102, 255, 0.3); box-shadow: 0 10px 25px rgba(0, 102, 255, 0.12); transform: translateY(-3px); }
+
+        .app-canva .app-logo { background: linear-gradient(135deg, #00c4cc, #7d2ae8); }
+        .app-canva:hover { border-color: rgba(125, 42, 232, 0.3); box-shadow: 0 10px 25px rgba(125, 42, 232, 0.12); transform: translateY(-3px); }
+
+        .app-capcut .app-logo { background: #000000; border: 1px solid rgba(255,255,255,0.1); }
+        .app-capcut:hover { border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1); transform: translateY(-3px); }
+
+        .app-spotify .app-logo { background: #1ed760; color: #000; }
+        .app-spotify:hover { border-color: rgba(30, 215, 96, 0.3); box-shadow: 0 10px 25px rgba(30, 215, 96, 0.12); transform: translateY(-3px); }
+        
+        .app-generic .app-logo { background: #33334d; }
+        .app-generic:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-3px); }
+        /* ---------------------------------------------------- */
+
+        /* Info Penting Alert */
+        .info-alert {
+            background: rgba(241, 196, 15, 0.08);
+            border: 1px solid rgba(241, 196, 15, 0.2);
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            color: #f1c40f;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        /* Footer & Button */
+        .footer {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        .btn-order {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 18px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .btn-order:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.35);
+        }
+
+        .note {
+            font-size: 0.75rem;
+            color: #55556d;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
+
+<div class="container">
+    <!-- Header Toko -->
+    <div class="header">
+        <h1>ℒeon ℳarket</h1>
+        <p>✧ Premium App Pricelist ✦</p>
+    </div>
+
+    <!-- Kotak Notifikasi Penting Untuk Pembeli -->
+    <div class="info-alert">
+        <i class="fa-solid : fa-circle-exclamation"></i>
+        <span><b>PENTING:</b> Untuk produk berlabel <b>TANYA STOK</b>, harap tanyakan ke admin terlebih dahulu sebelum melakukan transfer ya!</span>
+    </div>
+
+    <!-- ==================== WATCHING LIST ==================== -->
+    <div class="category-title"><i class="fa-solid : fa-film"></i> Watching List</div>
+
+    <!-- Netflix -->
+    <div class="product-box app-netflix">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-play"></i></div>
+                <div class="product-name">Netflix Premium</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="sub-group">
+            <div class="sub-title">1 Profile 1 User (1p1u)</div>
+            <div class="price-item"><span>• 1 Hari / 3 Hari</span> <span class="price-value">Rp 5.000 / Rp 9.500</span></div>
+            <div class="price-item"><span>• 7 Hari / 1 Bulan</span> <span class="price-value">Rp 11.000 / Rp 23.500</span></div>
+        </div>
+        <div class="sub-group">
+            <div class="sub-title">1 Profile 2 User (1p2u)</div>
+            <div class="price-item"><span>• 1 Hari / 3 Hari</span> <span class="price-value">Rp 5.000 / Rp 8.000</span></div>
+            <div class="price-item"><span>• 7 Hari / 1 Bulan</span> <span class="price-value">Rp 10.500 / Rp 16.000</span></div>
+        </div>
+        <div class="sub-group">
+            <div class="sub-title">Semi Private / Private</div>
+            <div class="price-item"><span>• Semi Private 1 Bulan</span> <span class="price-value">Rp 26.000</span></div>
+            <div class="price-item"><span>• Private 7 Hari</span> <span class="price-value">Rp 32k - Rp 42k</span></div>
+            <div class="price-item"><span>• Private 1 Bulan</span> <span class="price-value">Rp 92k - Rp 103k</span></div>
+        </div>
+    </div>
+
+    <!-- Vidio -->
+    <div class="product-box app-vidio">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-tv"></i></div>
+                <div class="product-name">Vidio</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• Platinum TV 1 Tahun</span> <span class="price-value">Rp 10.000</span></div>
+        <div class="price-item"><span>• Platinum Mobile Private 1 Bln</span> <span class="price-value">Rp 23.000</span></div>
+        <div class="price-item"><span>• Sharing Mobile 1 Bulan</span> <span class="price-value">Rp 20.000</span></div>
+        <div class="price-item"><span>• Sharing All Device 2 User</span> <span class="price-value">Rp 23.000</span></div>
+        <div class="price-item"><span>• Private All Device 1 Bulan</span> <span class="price-value">Rp 36.000</span></div>
+    </div>
+
+    <!-- Loklok -->
+    <div class="product-box app-loklok">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-clapperboard"></i></div>
+                <div class="product-name">Loklok</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• Private Standar 1 Bulan</span> <span class="price-value">Rp 23.000</span></div>
+        <div class="price-item"><span>• Sharing Basic 1 Bulan</span> <span class="price-value">Rp 17.000</span></div>
+        <div class="price-item"><span>• Sharing Standar 1 Bulan</span> <span class="price-value">Rp 19.500</span></div>
+        <div class="price-item"><span>• Sharing 20 Hari</span> <span class="price-value">Rp 11.500</span></div>
+    </div>
+
+    <!-- YouTube Premium -->
+    <div class="product-box app-youtube">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-brands : fa-youtube"></i></div>
+                <div class="product-name">YouTube Premium</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• Family Plan / Invite</span> <span class="price-value">Rp 5.800</span></div>
+        <div class="price-item"><span>• Family Head 1 Bulan</span> <span class="price-value">Rp 8.000</span></div>
+        <div class="price-item"><span>• Individual Plan (1 Bulan)</span> <span class="price-value">Rp 7.000</span></div>
+        <div class="price-item"><span>• Individual Plan (3 Bulan)</span> <span class="price-value">Rp 18.000</span></div>
+        <div class="price-item"><span>• Mix Plan (3 Bulan)</span> <span class="price-value">Rp 14.000</span></div>
+    </div>
+
+    <!-- iQIYI -->
+    <div class="product-box app-iqiyi">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-star"></i></div>
+                <div class="product-name">iQIYI</div>
+            </div>
+            <span class="stock-badge stock-ask">Tanya Stok</span>
+        </div>
+        <div class="price-item"><span>• Sharing Standar 1 Bln / 12 Bln</span> <span class="price-value">Rp 8.500 / Rp 14k</span></div>
+        <div class="price-item"><span>• Sharing Premium 1 Bln / 12 Bln</span> <span class="price-value">Rp 9.500 / Rp 16k</span></div>
+        <div class="price-item"><span>• Private Standar / Premium</span> <span class="price-value">Rp 33k / Rp 41k</span></div>
+    </div>
+
+    <!-- WeTV -->
+    <div class="product-box app-wetv">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-video"></i></div>
+                <div class="product-name">WeTV</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• 8 User / 6 User 1 Bulan</span> <span class="price-value">Rp 10.300 / Rp 12k</span></div>
+        <div class="price-item"><span>• 3 User / Private 1 Bulan</span> <span class="price-value">Rp 15.000 / Rp 32k</span></div>
+    </div>
+
+    <!-- Disney+ Hotstar -->
+    <div class="product-box app-disney">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-castle"></i></div>
+                <div class="product-name">Disney+ Hotstar</div>
+            </div>
+            <span class="stock-badge stock-ask">Tanya Stok</span>
+        </div>
+        <div class="price-item"><span>• Sharing 10 User 1 Bulan</span> <span class="price-value">Rp 26.000</span></div>
+        <div class="price-item"><span>• Sharing 6 User 1 Bulan</span> <span class="price-value">Rp 30.000</span></div>
+        <div class="price-item"><span>• Paket Harian</span> <span class="price-value">Rp 9k - Rp 15k</span></div>
+    </div>
+
+    <!-- Prime Video -->
+    <div class="product-box app-prime">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-brands : fa-amazon"></i></div>
+                <div class="product-name">Prime Video</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• Sharing 1 Bulan</span> <span class="price-value">Rp 8.500</span></div>
+        <div class="price-item"><span>• Private 1 Bulan</span> <span class="price-value">Rp 13.000</span></div>
+    </div>
+
+    <!-- Aplikasi Watching Lainnya -->
+    <div class="product-box app-generic">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-compact-disc"></i></div>
+                <div class="product-name">Watching Others</div>
+            </div>
+            <span class="stock-badge stock-ask">Tanya Stok</span>
+        </div>
+        <div class="price-item"><span>• DramaBox Sharing 1 Bulan</span> <span class="price-value">Rp 12.000</span></div>
+        <div class="price-item"><span>• Bstation Sharing 1 Bln / 12 Bln</span> <span class="price-value">Rp 9.500 / Rp 15.5k</span></div>
+        <div class="price-item"><span>• Bstation Private 1 Bulan</span> <span class="price-value">Rp 36.000</span></div>
+        <div class="price-item"><span>• Viu Private 1 Tahun</span> <span class="price-value">Rp 5.150</span></div>
+        <div class="price-item"><span>• Vision+ Sharing / PayTV</span> <span class="price-value">Rp 18.5k / Rp 11.5k</span></div>
+        <div class="price-item"><span>• MovieBox Android 1 Bln / 1 Thn</span> <span class="price-value">Rp 11.000 / Rp 16k</span></div>
+        <div class="price-item"><span>• Melolo 1 Bulan / 1 Tahun</span> <span class="price-value">Rp 9.500 / Rp 20k</span></div>
+        <div class="price-item"><span>• Youku Sharing 1 Bln / 12 Bln</span> <span class="price-value">Rp 9.500 / Rp 19k</span></div>
+        <div class="price-item"><span>• ReelShort Sharing / Family</span> <span class="price-value">Rp 11.000 / Rp 12k</span></div>
+    </div>
+
+
+    <!-- ==================== EDITING LIST ==================== -->
+    <div class="category-title"><i class="fa-solid : fa-scissors"></i> Editing List</div>
+
+    <!-- Alight Motion -->
+    <div class="product-box app-alight">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-wand-magic-sparkles"></i></div>
+                <div class="product-name">Alight Motion Pro</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• 1 Tahun (Acc Seller)</span> <span class="price-value">Rp 5.100</span></div>
+        <div class="price-item"><span>• 1 Tahun (Acc Buyer)</span> <span class="price-value">Rp 6.500</span></div>
+    </div>
+
+    <!-- Canva Pro -->
+    <div class="product-box app-canva">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-palette"></i></div>
+                <div class="product-name">Canva Pro</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• Member 1 Bulan / 1 Tahun</span> <span class="price-value">Rp 5.150 / Rp 7.000</span></div>
+        <div class="price-item"><span>• Admin 1 Bulan (20 Slot)</span> <span class="price-value">Rp 8.500</span></div>
+        <div class="price-item"><span>• Admin 1 Bulan (100 Slot)</span> <span class="price-value">Rp 11.000</span></div>
+        <div class="price-item"><span>• For Education Lifetime</span> <span class="price-value">Rp 8.000</span></div>
+    </div>
+
+    <!-- CapCut Pro -->
+    <div class="product-box app-capcut">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-crop"></i></div>
+                <div class="product-name">CapCut Pro</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• Paket 7 Hari + Garansi</span> <span class="price-value">Rp 6.500</span></div>
+        <div class="price-item"><span>• Sharing / Private 1 Bulan</span> <span class="price-value">Rp 9.000 / Rp 13k</span></div>
+        <div class="price-item"><span>• Private Panjang (35 Hari)</span> <span class="price-value">Rp 14.500</span></div>
+    </div>
+
+    <!-- Editing Others -->
+    <div class="product-box app-generic">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-eye"></i></div>
+                <div class="product-name">Wink & Picsart</div>
+            </div>
+            <span class="stock-badge stock-ask">Tanya Stok</span>
+        </div>
+        <div class="price-item"><span>• Wink Android 1 Bulan (Sharing)</span> <span class="price-value">Rp 7.200</span></div>
+        <div class="price-item"><span>• Wink iOS 1 Bulan (Sharing A)</span> <span class="price-value">Rp 26.000</span></div>
+        <div class="price-item"><span>• Picsart Private 1 Bulan</span> <span class="price-value">Rp 12.000</span></div>
+    </div>
+
+
+    <!-- ==================== MUSIC & READING ==================== -->
+    <div class="category-title"><i class="fa-solid : fa-music"></i> Music & Reading</div>
+
+    <!-- Spotify -->
+    <div class="product-box app-spotify">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-brands : fa-spotify"></i></div>
+                <div class="product-name">Spotify Premium</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• Student 1 Bulan</span> <span class="price-value">Rp 9.500</span></div>
+        <div class="price-item"><span>• Individual Plan 1 Bulan</span> <span class="price-value">Rp 13.000</span></div>
+    </div>
+
+    <!-- Music & Reading Others -->
+    <div class="product-box app-generic">
+        <div class="product-header">
+            <div class="product-title-wrapper">
+                <div class="app-logo"><i class="fa-solid : fa-book-open"></i></div>
+                <div class="product-name">Lainnya</div>
+            </div>
+            <span class="stock-badge stock-ready">Tersedia</span>
+        </div>
+        <div class="price-item"><span>• Apple Music Individual (1 Bln)</span> <span class="price-value">Rp 7.000</span></div>
+        <div class="price-item"><span>• Wattpad Premium Sharing (1 Bln)</span> <span class="price-value">Rp 5.500</span></div>
+        <div class="price-item"><span>• Fizzo Novel Sharing (1 Bulan)</span> <span class="price-value">Rp 11.200</span></div>
+        <div class="price-item"><span>• Noveltoon Sharing (1 Bulan)</span> <span class="price-value">Rp 12.000</span></div>
+    </div>
+
+
+    <!-- Footer & Link Order -->
+    <div class="footer">
+        <a href="https://wa.me/628816331967?text=Halo%20Leon%20Market%2C%20aku%20mau%20tanya%20stok%20dan%20order" target="_blank" class="btn-order">
+            <i class="fa-brands : fa-whatsapp"></i> Order & Tanya Stok Disini
+        </a>
+        <p class="note">KIRIM NAMA APLIKASI • TRANSFER • AKUN SIAP!</p>
+    </div>
+</div>
+
+</body>
+</html>
